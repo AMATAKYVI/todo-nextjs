@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import Event from './Event';
 import { EventsContext } from '@/contexts/EventsContext';
-// const dataEvents = [
-//   {
 //     event: 1,
 //     title: 'Dog Under the Bush',
 //     description:
@@ -23,11 +21,27 @@ import { EventsContext } from '@/contexts/EventsContext';
 // ];
 function Events() {
   const context = useContext(EventsContext);
+  const handleClickEvent = (event) => {};
+  const handleDelete = (event) => {
+    // could double check if the user want to delete the event
+    const filterEvent = context.event.filter(
+      (item) => item.title !== event.title
+    );
+    context.setEvent(filterEvent);
+  };
   return (
     <div className="grid grid-cols-2 gap-5 m-5">
       {context.event
         .map((ev, i) => {
-          return <Event event={ev} key={ev.event} index={i} />;
+          return (
+            <Event
+              event={ev}
+              key={ev.event}
+              index={i}
+              handleClickEvent={handleClickEvent}
+              handleDelete={handleDelete}
+            />
+          );
         })
         .reverse()}
     </div>
